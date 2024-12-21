@@ -12,6 +12,7 @@
 #include "module_base/timer.h"
 #include "module_base/parallel_common.h"
 
+#include <limits>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
@@ -405,6 +406,9 @@ void Input::Default(void)
     exx_opt_orb_lmax = 0;
     exx_opt_orb_ecut = 0.0;
     exx_opt_orb_tolerence = 0.0;
+
+    gs_orth_thr = std::numeric_limits<double>::min();
+    Cs_inv_thr = 1e-06;
 
     // added by zhengdy-soc
     noncolin = false;
@@ -1919,6 +1923,14 @@ bool Input::Read(const std::string &fn)
         {
             read_bool(ifs, test_skip_ewald);
         }
+        else if (strcmp("gs_orth_thr", word) == 0)
+        {
+            read_value(ifs, gs_orth_thr);
+        }
+        else if (strcmp("Cs_inv_thr", word) == 0)
+        {
+            read_value(ifs, Cs_inv_thr);
+        }
         //--------------
         //----------------------------------------------------------------------------------
         //         Xin Qu added on 2020-10-29 for DFT+U
@@ -3126,6 +3138,8 @@ void Input::Bcast()
     Parallel_Common::bcast_int(exx_opt_orb_lmax);
     Parallel_Common::bcast_double(exx_opt_orb_ecut);
     Parallel_Common::bcast_double(exx_opt_orb_tolerence);
+    Parallel_Common::bcast_double(gs_orth_thr);
+    Parallel_Common::bcast_double(Cs_inv_thr);
 
     Parallel_Common::bcast_bool(noncolin);
     Parallel_Common::bcast_bool(lspinorb);

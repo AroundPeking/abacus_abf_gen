@@ -26,6 +26,7 @@ list(APPEND objects
     output_rho.cpp
     output_potential.cpp
     parameter_pool.cpp
+	write_orb.cpp
 )
 
 list(APPEND objects_advanced

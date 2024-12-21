@@ -374,6 +374,8 @@ ModuleBase::GlobalFunc::OUTP(ofs, "out_bandgap", out_bandgap, "if true, print ou
     ModuleBase::GlobalFunc::OUTP(ofs, "exx_opt_orb_lmax", exx_opt_orb_lmax, "the maximum l of the spherical Bessel functions for opt ABFs");
     ModuleBase::GlobalFunc::OUTP(ofs, "exx_opt_orb_ecut", exx_opt_orb_ecut, "the cut-off of plane wave expansion for opt ABFs");
     ModuleBase::GlobalFunc::OUTP(ofs, "exx_opt_orb_tolerence", exx_opt_orb_tolerence, "the threshold when solving for the zeros of spherical Bessel functions for opt ABFs");
+    ModuleBase::GlobalFunc::OUTP(ofs, "gs_orth_thr", gs_orth_thr, "Gram-Schmidt threshold for generating abfs");
+    ModuleBase::GlobalFunc::OUTP(ofs, "Cs_inv_thr", Cs_inv_thr, "Vq inverse threshold for getting Cs");
 
     ofs << "\n#Parameters (16.tddft)" << std::endl;
     ModuleBase::GlobalFunc::OUTP(ofs, "td_force_dt", td_force_dt, "time of force change");

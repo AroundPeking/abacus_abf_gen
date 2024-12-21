@@ -123,6 +123,8 @@ void Matrix_Orbs21::init_radial_table( const std::map<size_t,std::map<size_t,std
 	for( const auto &RsA : Rs )
 		for( const auto &RsB : RsA.second )
 		{
+			size_t i=0;
+			size_t j=0;
 			if( auto* const center2_orb21_sAB = static_cast<std::map<int,std::map<size_t,std::map<int,std::map<size_t,std::map<int,std::map<size_t,Center2_Orb::Orb21>>>>>>*const>(
 						ModuleBase::GlobalFunc::MAP_EXIST(center2_orb21_s, RsA.first, RsB.first)) )
 			{
@@ -140,7 +142,11 @@ void Matrix_Orbs21::init_radial_table( const std::map<size_t,std::map<size_t,std
 							for( auto &coF : coE.second )
 								for( auto &coG : coF.second )
 									for( auto &coH : coG.second )
-										coH.second.init_radial_table(radials);
+										{i++;
+											j = coC.second.size()*coD.second.size()*coE.second.size()*coF.second.size()*coG.second.size();
+										coH.second.init_radial_table(radials);}
+	std::cout << i << std::endl;
+	std::cout << "center2_orb21_sAB size: " << j << std::endl;
 			}
 		}
 	ModuleBase::timer::tick("Matrix_Orbs21", "init_radial_table");

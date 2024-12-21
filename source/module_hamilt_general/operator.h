@@ -16,7 +16,6 @@ enum calculation_type
     pw_nonlocal,
     pw_veff,
     pw_meta,
-    lcao_overlap,
     lcao_fixed,
     lcao_gint,
     lcao_deepks,

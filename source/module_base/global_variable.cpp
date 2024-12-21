@@ -3,7 +3,7 @@
 // DATE : 2008-11-07
 //==========================================================
 #include "global_variable.h"
-
+#include <limits>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
@@ -256,4 +256,5 @@ int out_chg = 0;
 double nelec = 0;
 bool out_bandgap = false; // QO added for bandgap printing
 int out_interval = 1;    // convert from out_hsR_interval liuyu 2023-04-18
+double gs_orth_thr = std::numeric_limits<double>::min();
 } // namespace GlobalV

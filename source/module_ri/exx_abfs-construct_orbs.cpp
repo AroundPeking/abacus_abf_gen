@@ -1,6 +1,6 @@
 #include "exx_abfs-construct_orbs.h"
-
 #include "exx_abfs-pca.h"
+
 #include "module_base/gram_schmidt_orth-inl.h"
 #include "module_base/gram_schmidt_orth.h"
 #include "module_basis/module_ao/ORB_read.h"
@@ -86,7 +86,7 @@ std::vector<std::vector<std::vector<Numerical_Orbital_Lm>>> Exx_Abfs::Construct_
 		abfs_same_atom_psi = psi_mult_psi( orbs );
 
 	const std::vector<std::vector<std::vector<std::vector<double>>>>
-		abfs_same_atom_orth_psi = orth( abfs_same_atom_psi, orbs );
+		abfs_same_atom_orth_psi = orth( abfs_same_atom_psi, orbs, GlobalV::gs_orth_thr );
 	const std::vector<std::vector<std::vector<Numerical_Orbital_Lm>>>
 		abfs_same_atom = orbital( abfs_same_atom_orth_psi, orbs, 1 );
 

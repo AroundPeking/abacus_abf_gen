@@ -25,6 +25,9 @@
 #include <fstream>
 #include <string>
 
+//test
+#include "module_io/write_orb.h"
+
 template<typename Tdata>
 void Exx_LRI<Tdata>::init(const MPI_Comm &mpi_comm_in, const K_Vectors &kv_in)
 {
@@ -63,6 +66,12 @@ void Exx_LRI<Tdata>::init(const MPI_Comm &mpi_comm_in, const K_Vectors &kv_in)
 	else
 		this->abfs = Exx_Abfs::IO::construct_abfs( abfs_same_atom, GlobalC::ORB, this->info.files_abfs, this->info.kmesh_times );
 	Exx_Abfs::Construct_Orbs::print_orbs_size(this->abfs, GlobalV::ofs_running);
+
+	if(GlobalV::MY_RANK==0)
+		for(std::size_t it=0; it<this->abfs.size(); ++it)
+			ModuleIO::write_orb(abfs[it], abfs[it][0][0].getLabel()+".abfs");
+	std::cout<<__FILE__<<" line "<<__LINE__<<std::endl;
+	exit(0);
 
 	auto get_ccp_parameter = [this]() -> std::map<std::string,double>
 	{

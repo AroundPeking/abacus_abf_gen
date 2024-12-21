@@ -1,4 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
+set(CMAKE_CXX_COMPILER "/home/apps/intel20u4/compilers_and_libraries_2020.4.304/linux/bin/intel64/icpc")
+set(MPI_CXX_COMPILER "/home/apps/intel20u4/compilers_and_libraries_2020.4.304/linux/mpi/intel64/bin/mpiicpc")
 if(POLICY CMP0135) # https://cmake.org/cmake/help/git-stage/policy/CMP0135.html
     cmake_policy(SET CMP0135 NEW) # Otherwise this policy generates a warning on CMake 3.24
 endif()
@@ -12,7 +14,7 @@ project(ABACUS
 
 option(ENABLE_LCAO "Enable LCAO calculation." ON)
 option(ENABLE_DEEPKS "Enable DeePKS functionality" OFF)
-option(ENABLE_LIBXC "Enable LibXC functionality" OFF)
+option(ENABLE_LIBXC "Enable LibXC functionality" ON)
 option(USE_CUDA "Enable support to CUDA for PW." OFF)
 option(ENABLE_FLOAT_FFTW "Enable support to single precision FFTW library." OFF)
 # option(USE_CUSOLVER_LCAO "Enable support to CUSOLVER for LCAO." OFF) # broken
@@ -22,8 +24,8 @@ option(ENABLE_ASAN "Enable AddressSanitizer" OFF)
 option(BUILD_TESTING "Build ABACUS unit tests" OFF)
 option(INFO "Enable gathering of math library information" OFF)
 option(ENABLE_COVERAGE "Enable coverage build." OFF)
-option(ENABLE_LIBRI "Enable EXX with LibRI." OFF)
-option(ENABLE_LIBCOMM "Enable communicate with LibComm." OFF)
+option(ENABLE_LIBRI "Enable EXX with LibRI." ON)
+option(ENABLE_LIBCOMM "Enable communicate with LibComm." ON)
 option(ENABLE_MPI "Enable compilation with or without MPI." ON)
 option(USE_ELPA "Enable ELPA" ON)
 option(USE_ABACUS_LIBM "Build libmath from source to speed up." ON)
@@ -32,6 +34,15 @@ option(DEBUG_INFO "Print message for developers to debug." OFF)
 # Do not enable it if generated code will run on different CPUs
 option(ENABLE_NATIVE_OPTIMIZATION "Enable compilation optimization for the native machine's CPU type" OFF)
 option(COMMIT_INFO "Print commit information in log" ON)
+
+set(CEREAL_DIR   "/home/linpz/software/cereal/cereal-1.3.0" CACHE STRING "")
+set(CEREAL_INCLUDE_DIR   "/home/linpz/software/cereal/cereal-1.3.0/include" CACHE STRING "")
+set(ELPA_LIBRARY "/home/linpz/software/elpa/elpa-openmp_2021.11.002/lib/libelpa_openmp.so" CACHE STRING "")
+set(ELPA_DIR "/home/linpz/software/elpa/elpa-openmp_2021.11.002" CACHE STRING "")
+set(ELPA_INCLUDE_DIR "/home/linpz/software/elpa/elpa-openmp_2021.11.002/include/elpa_openmp-2021.11.002" CACHE STRING "")
+set(LIBRI_DIR "/home/ghj/abacus/abacus_abfs/LibRI"  CACHE STRING "")
+set(LIBCOMM_DIR "/home/ghj/abacus/230603/LibComm" CACHE STRING "")
+set(Libxc_DIR "/home/ghj/abacus/libxc-6.0.0-build" CACHE STRING "")
 
 # get commit info
 if(COMMIT_INFO)

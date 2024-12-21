@@ -577,6 +577,7 @@ void Input_Conv::Convert(void)
 #endif // __LCAO
 #endif // __EXX
     GlobalC::ppcell.cell_factor = INPUT.cell_factor; // LiuXh add 20180619
+    GlobalV::gs_orth_thr = INPUT.gs_orth_thr;
 
     //----------------------------------------------------------
     // main parameters / electrons / spin ( 2/16 )

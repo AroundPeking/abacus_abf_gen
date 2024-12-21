@@ -371,6 +371,8 @@ class Input
     int exx_opt_orb_lmax;
     double exx_opt_orb_ecut;
     double exx_opt_orb_tolerence;
+    double gs_orth_thr;
+    double Cs_inv_thr;
 
     //==========================================================
     // tddft

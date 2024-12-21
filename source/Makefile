@@ -5,7 +5,7 @@ include Makefile.vars
 #==========================
 INCLUDES = -I. -Icommands -I../
 LIBS = -lm -lpthread
-OPTS = -std=c++14 -pedantic -m64 ${INCLUDES}
+OPTS = -std=c++14 -pedantic -m64 ${INCLUDES} -cxx=icpc
 HONG = -D__LCAO
 HONG += -D__ELPA
 ifeq ($(OPENMP), ON)
@@ -21,10 +21,10 @@ ifeq ($(findstring mpi, $(CXX)), mpi)
      HONG += -D__MPI  -DUSE_CEREAL_SERIALIZATION
      MPI = ON
      TESTNP = 4
-     suffix = mpi
-     ifeq ($(findstring mpii, $(CXX)), mpii)
+     suffix = mpi.impi
+#     ifeq ($(findstring mpii, $(CXX)), mpii)
          INTEL=ON
-     endif
+#     endif
 else
      TESTNP = 1
      suffix = serial
@@ -43,7 +43,8 @@ ifeq ($(DEBUG), ON)
     endif
     OPTS += -O0 -fsanitize=address -fno-omit-frame-pointer -Wall -g #It can check segmental defaults
 else
-    HONG += -Ofast -march=native -DNDEBUG
+#    HONG += -Ofast -march=native -DNDEBUG
+    HONG += -Ofast -march=native -DNDEBUG -g
 endif
 
 ifeq ($(INTEL), ON)
@@ -84,6 +85,8 @@ else
     INCLUDES += -I${ELPA_INCLUDE_DIR}
 endif
 
+
+HONG  += -D__MKL_RI -DMKL_Complex8="std::complex<float>" -DMKL_Complex16="std::complex<double>"
 
 #==========================
 # Cereal package
@@ -219,5 +222,5 @@ ${OBJ_DIR}/%.o:%.cpp
 .PHONY:clean test
 clean:
 	@ if [ -d $(OBJ_DIR) ]; then rm -rf $(OBJ_DIR); fi
-	@ if [ -d $(BIN_DIR) ]; then rm -rf $(BIN_DIR); fi
+#	@ if [ -d $(BIN_DIR) ]; then rm -rf $(BIN_DIR); fi
 	@ cd module_hamilt_pw/hamilt_pwdft; make clean
